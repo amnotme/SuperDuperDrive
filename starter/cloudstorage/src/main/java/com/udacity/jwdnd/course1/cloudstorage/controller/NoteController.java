@@ -29,25 +29,26 @@ public class NoteController {
 
     @PostMapping("/add")
     public String insertNote(
-            Authentication auth,
-            @ModelAttribute("newNote") NoteForm noteForm,
-            Model model
+        Authentication auth,
+        @ModelAttribute("newNote") NoteForm noteForm,
+        Model model
     ) {
         boolean isResultSaved = false;
-            if (!noteForm.getNoteId().isEmpty())
-                isResultSaved = this.noteService.updateNote(noteForm);
-            else
-                isResultSaved = this.noteService.insertNote(noteForm, this.userService.getUser(auth));
 
-            model.addAttribute("success", false);
+        if (!noteForm.getNoteId().isEmpty())
+            isResultSaved = this.noteService.updateNote(noteForm);
+        else
+            isResultSaved = this.noteService.insertNote(noteForm, this.userService.getUser(auth));
 
-            if (isResultSaved)
-                model.addAttribute("success", true);
-            else
-                model.addAttribute(
-                "errorMessage",
-                "Unable to save note with title: [" + noteForm.getNoteTitle() + "]"
-            );
+        model.addAttribute("success", false);
+
+        if (isResultSaved)
+            model.addAttribute("success", true);
+        else
+            model.addAttribute(
+            "errorMessage",
+            "Unable to save note with title: [" + noteForm.getNoteTitle() + "]"
+        );
 
 
         return "result";
@@ -55,15 +56,14 @@ public class NoteController {
 
     @GetMapping("/delete/{noteId}")
     public String delete(
-            Authentication auth,
-            @ModelAttribute("newNote") NoteForm noteForm,
-            @PathVariable("noteId") String noteId,
-            Model model
+        @ModelAttribute("newNote") NoteForm noteForm,
+        @PathVariable("noteId") String noteId,
+        Model model
     ) {
 
         model.addAttribute("success", false);
 
-        if (noteService.deleteNote(Integer.parseInt(noteForm.getNoteId())))
+        if (noteService.deleteNote(Integer.parseInt(noteId)))
             model.addAttribute("success", true);
         else
             model.addAttribute(
@@ -73,7 +73,4 @@ public class NoteController {
 
         return "result";
     }
-
-
-
 }

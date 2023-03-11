@@ -46,7 +46,7 @@ public class Credential {
         this.url = url;
     }
 
-    public String getUsername() {
+    public String getUserName() {
         return username;
     }
 
