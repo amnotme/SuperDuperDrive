@@ -2,11 +2,9 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 
 import com.udacity.jwdnd.course1.cloudstorage.form.CredentialForm;
+import com.udacity.jwdnd.course1.cloudstorage.form.FileForm;
 import com.udacity.jwdnd.course1.cloudstorage.form.NoteForm;
-import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
-import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
-import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
-import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
+import com.udacity.jwdnd.course1.cloudstorage.services.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,16 +24,20 @@ public class HomeController {
 
     private final EncryptionService encryptionService;
 
+    private final FileService fileService;
+
     public HomeController(
         UserService userService,
         NoteService noteService,
         CredentialService credentialService,
-        EncryptionService encryptionService
+        EncryptionService encryptionService,
+        FileService fileService
     ) {
         this.userService = userService;
         this.noteService = noteService;
         this.credentialService = credentialService;
         this.encryptionService = encryptionService;
+        this.fileService = fileService;
     }
 
     @GetMapping("")
@@ -43,7 +45,8 @@ public class HomeController {
         Authentication auth,
         Model model,
         @ModelAttribute("newNote") NoteForm noteForm,
-        @ModelAttribute("newCredential") CredentialForm credForm
+        @ModelAttribute("newCredential") CredentialForm credForm,
+        @ModelAttribute("newFile") FileForm fileForm
     ) {
         model.addAttribute("encryptionService",
                 this.encryptionService
@@ -61,6 +64,11 @@ public class HomeController {
                     (this.userService.getUser(auth)).getUserId())
                 );
 
+        model.addAttribute("allFiles",
+            this.fileService
+                .getFilesByUserId(
+                    (this.userService.getUser(auth)).getUserId())
+                );
 
         return "home";
     }
