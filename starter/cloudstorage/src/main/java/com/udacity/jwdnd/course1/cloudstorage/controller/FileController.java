@@ -52,7 +52,7 @@ public class FileController {
                 this.fileService.insertFile(multipartFile, this.userService.getUser(auth));
                 model.addAttribute("success", true);
             }
-        } catch (IOException exception) {
+        } catch (IOException | RuntimeException exception) {
             String errorMessage = exception.getLocalizedMessage();
             model.addAttribute("error", true);
             model.addAttribute("errorMessage", "Seems like an error occurred: " +

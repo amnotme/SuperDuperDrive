@@ -134,7 +134,8 @@ class CloudStorageApplicationTests {
 	public void testRedirection() {
 		// Create a test account
 		doMockSignUp("Redirection","Test","RT","123");
-		
+		WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
+		webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("loginPage")));
 		// Check if we have been redirected to the log in page.
 		Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
 	}
