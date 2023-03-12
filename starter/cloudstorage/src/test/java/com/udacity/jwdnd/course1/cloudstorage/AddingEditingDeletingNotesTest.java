@@ -20,7 +20,6 @@ public class AddingEditingDeletingNotesTest {
     @Autowired
     private HelperTestMethods helperTestMethods;
 
-
     @LocalServerPort
     private int port;
 
@@ -44,13 +43,13 @@ public class AddingEditingDeletingNotesTest {
     }
 
 
-    private void createNote(String title, String description)  {
+    private void createNote(String title, String description, String userIdentifier)  {
 
         helperTestMethods.helperSignUp(
-                helperTestMethods.NAME,
-                helperTestMethods.LASTNAME,
-                helperTestMethods.USERNAME,
-                helperTestMethods.PASSWORD,
+                helperTestMethods.NAME + userIdentifier,
+                helperTestMethods.LASTNAME + userIdentifier,
+                helperTestMethods.USERNAME + userIdentifier,
+                helperTestMethods.PASSWORD + userIdentifier,
                 this.driver,
                 this.port
         );
@@ -59,8 +58,8 @@ public class AddingEditingDeletingNotesTest {
         webDriverWaitLoginPage.until(ExpectedConditions.presenceOfElementLocated(By.id("loginPage")));
 
         helperTestMethods.helperLogIn(
-                helperTestMethods.USERNAME,
-                helperTestMethods.PASSWORD,
+                helperTestMethods.USERNAME + userIdentifier,
+                helperTestMethods.PASSWORD + userIdentifier,
                 this.driver,
                 this.port
         );
@@ -110,8 +109,9 @@ public class AddingEditingDeletingNotesTest {
     public void testAddingNotes() {
         String title1 = "Title 1";
         String description1 = "Description 1";
+        String userIdentifier = "_1";
 
-        this.createNote(title1, description1);
+        this.createNote(title1, description1, userIdentifier);
 
         helperTestMethods.helperNavToNotes(this.driver);
 
@@ -135,8 +135,10 @@ public class AddingEditingDeletingNotesTest {
         String title2 = "Title 2";
         String description1 = "Description 1";
         String description2 = "Description 2";
+        String userIdentifier = "_2";
 
-        this.createNote(title1, description1);
+
+        this.createNote(title1, description1, userIdentifier);
 
         helperTestMethods.helperNavToNotes(this.driver);
 
@@ -149,8 +151,8 @@ public class AddingEditingDeletingNotesTest {
         helperTestMethods.helperLogOut(driver);
 
         helperTestMethods.helperLogIn(
-            helperTestMethods.USERNAME,
-            helperTestMethods.PASSWORD,
+        helperTestMethods.USERNAME + userIdentifier,
+        helperTestMethods.PASSWORD + userIdentifier,
             this.driver,
             this.port
         );
@@ -177,8 +179,9 @@ public class AddingEditingDeletingNotesTest {
     public void testDeletingANote() {
         String title1 = "Title 1";
         String description1 = "Description 1";
+        String userIdentifier = "_3";
 
-        this.createNote(title1, description1);
+        this.createNote(title1, description1, userIdentifier);
 
         helperTestMethods.helperNavToNotes(this.driver);
 
@@ -191,8 +194,8 @@ public class AddingEditingDeletingNotesTest {
         helperTestMethods.helperLogOut(driver);
 
         helperTestMethods.helperLogIn(
-                helperTestMethods.USERNAME,
-                helperTestMethods.PASSWORD,
+                helperTestMethods.USERNAME + userIdentifier,
+                helperTestMethods.PASSWORD + userIdentifier,
                 this.driver,
                 this.port
         );

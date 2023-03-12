@@ -98,6 +98,14 @@ public class HelperTestMethods {
         navNotesTab.click();
     }
 
+    public void helperNavToCred(WebDriver driver) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-credentials-tab")));
+
+        WebElement navNotesTab = driver.findElement(By.id("nav-credentials-tab"));
+        navNotesTab.click();
+    }
+
     public void helperAddNewNoteClick(WebDriver driver) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("addNewNote")));
@@ -105,20 +113,43 @@ public class HelperTestMethods {
         WebElement addNewNote = driver.findElement(By.id("addNewNote"));
         addNewNote.click();
     }
+
+    public void helperAddNewCredClick(WebDriver driver) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("addNewCred")));
+
+        WebElement addNewCred = driver.findElement(By.id("addNewCred"));
+        addNewCred.click();
+    }
     public void helperEditNoteClick(WebDriver driver) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("editNote")));
 
-        WebElement addNewNote = driver.findElement(By.id("editNote"));
-        addNewNote.click();
+        WebElement editNote = driver.findElement(By.id("editNote"));
+        editNote.click();
+    }
+
+    public void helperEditCredClick(WebDriver driver) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("editCred")));
+
+        WebElement editCred = driver.findElement(By.id("editCred"));
+        editCred.click();
     }
 
     public void helperDeleteNoteClick(WebDriver driver) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteNote")));
 
-        WebElement addNewNote = driver.findElement(By.id("deleteNote"));
-        addNewNote.click();
+        WebElement deleteNoteClick = driver.findElement(By.id("deleteNote"));
+        deleteNoteClick.click();
+    }
+    public void helperDeleteCredClick(WebDriver driver) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteCred")));
+
+        WebElement deleteCredClick = driver.findElement(By.id("deleteCred"));
+        deleteCredClick.click();
     }
 
 
@@ -138,6 +169,30 @@ public class HelperTestMethods {
         noteDescription.sendKeys(description);
 
         WebElement noteSubmitButton = driver.findElement(By.id("noteSubmitbutton"));
+        noteSubmitButton.click();
+    }
+
+    public void helperSetCred(WebDriver driver, String url, String username, String password) {
+        WebDriverWait credUrlWait = new WebDriverWait(driver, 5);
+        credUrlWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-url")));
+        WebElement credUrl = driver.findElement(By.id("credential-url"));
+
+        credUrl.click();
+        credUrl.clear();
+        credUrl.sendKeys(url);
+
+
+        WebElement credUsername = driver.findElement(By.id("credential-username"));
+        credUsername.click();
+        credUsername.clear();
+        credUsername.sendKeys(username);
+
+        WebElement credPassword = driver.findElement(By.id("credential-password"));
+        credPassword.click();
+        credPassword.clear();
+        credPassword.sendKeys(password);
+
+        WebElement noteSubmitButton = driver.findElement(By.id("credSubmitButton"));
         noteSubmitButton.click();
     }
 
