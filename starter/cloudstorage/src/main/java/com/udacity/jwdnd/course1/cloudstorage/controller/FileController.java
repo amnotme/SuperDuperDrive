@@ -9,16 +9,26 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 @Controller
+@ControllerAdvice
 @RequestMapping("/file")
 public class FileController {
 
     private final UserService userService;
 
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public String handleFilUploadError(Model model) {
+        System.out.println(("Caught Error"));
+        model.addAttribute("error", true);
+        model.addAttribute("errorMessage", "your file could not be uploaded because it's too big.");
+        return "result";
+
+    }
     private final FileService fileService;
 
     public FileController(UserService userService, FileService fileService) {
